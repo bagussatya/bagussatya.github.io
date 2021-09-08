@@ -9,7 +9,7 @@
         const input = tf.browser.fromPixels(img).cast('float32').expandDims();
         const result = model.predict(input);
         const y = result.dataSync()
-        if(y[0] > 0.5){
+        if(result[0] > 0.5){
             document.getElementById("output").innerHTML = 'Tidak Segar';
         }
         else{
