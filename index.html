@@ -1,0 +1,46 @@
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>   
+<script>
+    async function run(){
+        const MODEL_URL = 'https://raw.githubusercontent.com/bagussatya/fresh_fish/main/Website/model.json';
+        const model = await tf.loadLayersModel(MODEL_URL);
+        const img = document.getElementById('img');
+        const input = tf.browser.fromPixels(img).cast('float32').expandDims();
+        const result = model.predict(input);
+        const y = result.dataSync()
+        if(y[0] > 0.5){
+            document.getElementById("output").innerHTML = 'Tidak Segar';
+        }
+        else{
+            document.getElementById("output").innerHTML = 'Segar';
+        }
+        alert("Classification Done!");
+	}
+</script>
+<script>
+    window.addEventListener('load', function() {
+    document.querySelector('input[type="file"]').addEventListener('change', function() {
+      if (this.files && this.files[0]) {
+          var img = document.querySelector('img');
+          img.src = URL.createObjectURL(this.files[0]);
+          img.onload = imageIsLoaded;
+      }
+  });
+});
+
+function imageIsLoaded() { 
+  alert("Image Uploaded");
+}
+</script>
+</head>
+<body>
+    <h1>Deteksi Kesegaran Ikan</h1>
+    <img id='img' src="#" width="150px" height="150px">
+    <p></p>
+    <input type='file' />
+    <button onclick="run()">Classify!</button>
+    <p>Kondisi Ikan : </p>
+    <p id="output"></p>
+</body> 
+</html>
