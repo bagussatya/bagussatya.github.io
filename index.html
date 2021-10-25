@@ -3,7 +3,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"> </script>   
 <script>
     async function run(){
-        const MODEL_URL = 'https://raw.githubusercontent.com/bagussatya/bagussatya.github.io/main/model.json';
+        const MODEL_URL = 'https://raw.githubusercontent.com/bagussatya/fresh_fish/main/Website/model.json';
         const model = await tf.loadLayersModel(MODEL_URL);
         const img = document.getElementById('img');
         const input = tf.browser.fromPixels(img).cast('float32').expandDims();
